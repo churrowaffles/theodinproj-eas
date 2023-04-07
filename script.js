@@ -2,7 +2,6 @@ var isDrawing = false;
 var penColor;
 
 document.addEventListener("DOMContentLoaded", function() {
-
     // Color selection for users to choose pen color
     penColor = getComputedStyle(document.body).getPropertyValue('--main-bg-color');
     color = document.querySelector('input[type=color]');
@@ -18,6 +17,12 @@ document.addEventListener("DOMContentLoaded", function() {
     slider.addEventListener("input", (e) => {
         updateSlider(e.target.value)
     });
+
+    // Clear button for users to reset sketchbox
+    clear = document.querySelector('.clear-input');
+    clear.addEventListener('click', () => {
+        updateSlider(slider.value);
+    })
 })
 
 

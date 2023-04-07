@@ -27,7 +27,7 @@ body {
 }
 
 .outer-box {
-    border: solid 3px white;
+    border: solid 3px var(--main-color);
     width: 30rem;
     height: 30rem;
     background-color: var(--main-color);
@@ -49,7 +49,7 @@ body {
 
 .small-box {
     flex-grow: 1;
-    outline: solid 0.5px black;
+    outline: solid 0.5px rgb(155, 155, 155);
 }
 
 .settings {
@@ -68,12 +68,34 @@ body {
     font-size: large;
 }
 
+.clear {
+    width: 50%;
+    height: 10%;
+    padding: 1rem;
+}
 
+.clear-input {
+    width: 100%;
+    height: 100%;
+    background-color: var(--main-color);
+    box-shadow: 0.2px 0.2px white;
+    font-size: large;
+}
+
+
+.clear-input:hover {
+    border: double 5px var(--main-bg-color);
+    cursor: pointer;
+}
+
+.clear-input:active {
+    filter: invert(80%);
+}
 
 .color {
     display: flex;
     justify-content: flex-start;
-    padding-right: 1rem;
+    padding: 2rem 1rem 2rem 0;
 }
 
 .color-input {
@@ -84,4 +106,5 @@ body {
 .color label {
     display: flex;
     align-items: center;
+    font-size: large;
 }
