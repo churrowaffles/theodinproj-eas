@@ -3,6 +3,9 @@ var penColor;
 
 document.addEventListener("DOMContentLoaded", function() {
     penColor = getComputedStyle(document.body).getPropertyValue('--main-bg-color');
+    color = document.querySelector('input[type=color]');
+    color.value = penColor;
+
     slider = document.querySelector('.slider');
     sliderDisplay = document.querySelector('.slider-display');
     updateSlider(slider.value);
@@ -10,21 +13,25 @@ document.addEventListener("DOMContentLoaded", function() {
     slider.addEventListener("input", (e) => {
         updateSlider(e.target.value)
     });
+
 })
+
 
 function enableDrawing() {
     // Controls mouse activity to draw in the sketch box
-    window.addEventListener("mousedown", () => isDrawing = true)
-    window.addEventListener("mouseup", () => isDrawing = false)
-    smallBox = document.querySelectorAll('.small-box')
-    smallBox.forEach(e => {
-        e.addEventListener('mouseover', () => {
+    window.addEventListener("mousedown", () => isDrawing = true);
+    window.addEventListener("mouseup", () => isDrawing = false);
+    smallBox = document.querySelectorAll('.small-box');
+    smallBox.forEach(box => {
+        box.addEventListener('mousedown', () => {
+            box.style.backgroundColor = penColor;
+        })
+        box.addEventListener('mousemove', () => {
             if (isDrawing == true) {
-                e.style.backgroundColor = penColor;
+                box.style.backgroundColor = penColor;
             }
         })
-    });
-
+    })
     // Prevents default dragging effect within the sketch box
     outerBox = document.querySelector('.outer-box')
     outerBox.addEventListener("mousedown", (e) =>
