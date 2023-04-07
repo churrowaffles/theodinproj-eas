@@ -2,18 +2,22 @@ var isDrawing = false;
 var penColor;
 
 document.addEventListener("DOMContentLoaded", function() {
+
+    // Color selection for users to choose pen color
     penColor = getComputedStyle(document.body).getPropertyValue('--main-bg-color');
     color = document.querySelector('input[type=color]');
     color.value = penColor;
+    color.addEventListener("input", (e) => {
+        penColor = e.target.value
+    });
 
-    slider = document.querySelector('.slider');
+    // Slider to allow users to decide the dimensions of the sketchbox
+    slider = document.querySelector('input[type=range]');
     sliderDisplay = document.querySelector('.slider-display');
     updateSlider(slider.value);
-
     slider.addEventListener("input", (e) => {
         updateSlider(e.target.value)
     });
-
 })
 
 
@@ -67,6 +71,6 @@ function updateSlider(value) {
     } else if (value > 50) {
         value = 50
     }
-    sliderDisplay.textContent = value;
+    sliderDisplay.textContent = value + ' x ' + value;
     createInnerBox(value);
 }
