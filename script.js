@@ -1,5 +1,4 @@
 var isDrawing = false;
-var penColor;
 var hexValues = "0123456789ABCDEF";
 var hexSymbol = '#';
 
@@ -13,14 +12,12 @@ document.addEventListener("DOMContentLoaded", function() {
         updateSlider(e.target.value)
     });
 
-    // Pen Options for Color/Eraser/Rainbow
+    // Toggling between Default/Color/Eraser/Rainbow
     options = document.querySelectorAll('.option-buttons input');
     toggleDrawingOption(options);
 
-    // Color selection for users to choose pen color
-    penColor = getComputedStyle(document.body).getPropertyValue('--main-bg-color');
-    color = document.querySelector('input[type=color]');
-    color.value = penColor;
+    // Set default pen color as Yellow
+    document.querySelector('input[type=color]').value = '#FFFF00';
 
     // Toggle button for users to turn on and off sketch lines
     toggleGrid = document.querySelector('.toggle-input');
@@ -35,6 +32,17 @@ document.addEventListener("DOMContentLoaded", function() {
     })
 
 })
+
+
+function updateSlider(value) {
+    if (value < 1) {
+        value = 1
+    } else if (value > 50) {
+        value = 50
+    }
+    sliderDisplay.textContent = value + ' x ' + value;
+    createInnerBox(value);
+}
 
 
 function createInnerBox(n) {
@@ -57,6 +65,7 @@ function createInnerBox(n) {
     outerBox.appendChild(innerBox)
     enableDrawing();
 }
+
 
 function enableDrawing() {
     // Controls mouse activity to draw in the sketch box
@@ -81,6 +90,17 @@ function enableDrawing() {
     )
 }
 
+
+function toggleDrawingOption(options) {
+    options.forEach(option => {
+        option.addEventListener("click", (e) => {
+            options.forEach(option => option.classList.remove('option-on'));
+            e.target.classList.add('option-on');
+        })
+    })
+}
+
+
 function getPenColor() {
     selected = document.querySelector('.option-on').value;
     if (selected == 'Eraser') {
@@ -94,25 +114,6 @@ function getPenColor() {
     }
 }
 
-function updateSlider(value) {
-    if (value < 1) {
-        value = 1
-    } else if (value > 50) {
-        value = 50
-    }
-    sliderDisplay.textContent = value + ' x ' + value;
-    createInnerBox(value);
-}
-
-
-function toggleDrawingOption(options) {
-    options.forEach(option => {
-        option.addEventListener("click", (e) => {
-            options.forEach(option => option.classList.remove('option-on'));
-            e.target.classList.add('option-on');
-        })
-    })
-}
 
 function getRandomColor() {
     let colorCode = hexSymbol;
