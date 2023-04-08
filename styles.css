@@ -3,6 +3,11 @@
     --main-color: white;
 }
 
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
 body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     display: flex;
@@ -49,20 +54,22 @@ body {
 
 .small-box {
     flex-grow: 1;
-    outline: solid 0.5px rgb(155, 155, 155);
     background-color: white;
 }
 
+.grid-lines {
+    outline: solid 0.5px rgb(155, 155, 155);
+}
+
 .settings {
-    padding: 1rem;
     padding-left: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.slider {
-    padding: 2rem;
+.settings div {
+    margin: 0.3rem;
 }
 
 .slider-display {
@@ -71,10 +78,12 @@ body {
 }
 
 .option-buttons {
-    padding-bottom: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .option-buttons input {
+    font-size: 1.1em;
     padding: 1rem;
     margin: 0.5rem;
     border-radius: 1rem;
@@ -83,26 +92,37 @@ body {
     cursor: pointer;
 }
 
+.option-buttons input:hover {
+    border: 2px solid black;
+}
 .option-on {
     filter: invert(85%);
 }
 
-.clear {
-    width: 50%;
-    height: 10%;
+.toggle-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.toggle-buttons input {
+    margin: 0.5rem;
     padding: 1rem;
-}
-
-.clear-input {
-    width: 100%;
-    height: 100%;
     background-color: var(--main-color);
-    font-size: large;
+    font-size: 1em;
+    border: 3px double black;
+    border-radius: 1rem;
 }
 
+.toggle-buttons input:hover {
+    cursor: pointer;
+    border: 3px solid black;
+}
+
+.toggle-buttons input:active {
+    filter: invert(80%);
+}
 
 .clear-input:hover {
-    border: double 5px var(--main-bg-color);
     cursor: pointer;
 }
 
@@ -112,8 +132,7 @@ body {
 
 .color {
     display: flex;
-    justify-content: flex-start;
-    padding: 2rem 1rem 2rem 0;
+    align-items: center;
 }
 
 .color-input {

@@ -17,16 +17,23 @@ document.addEventListener("DOMContentLoaded", function() {
     options = document.querySelectorAll('.option-buttons input');
     toggleDrawingOption(options);
 
-    // Clear button for users to reset sketchbox
-    clear = document.querySelector('.clear-input');
-    clear.addEventListener('click', () => {
-        updateSlider(slider.value);
-    })
-
     // Color selection for users to choose pen color
     penColor = getComputedStyle(document.body).getPropertyValue('--main-bg-color');
     color = document.querySelector('input[type=color]');
     color.value = penColor;
+
+    // Toggle button for users to turn on and off sketch lines
+    toggleGrid = document.querySelector('.toggle-input');
+    toggleGrid.addEventListener('click', () => {
+        document.querySelectorAll('.small-box').forEach(box => box.classList.toggle('grid-lines'))
+    })
+
+    // Clear button for users to reset sketchbox
+    clear = document.querySelector('.clear-input');
+    clear.addEventListener('click', () => {
+        document.querySelectorAll('.small-box').forEach(box => box.style.backgroundColor = 'white')
+    })
+
 })
 
 
@@ -40,6 +47,7 @@ function createInnerBox(n) {
         for (j = 0; j < n; j++) {
             smallBox = document.createElement('div')
             smallBox.classList.add('small-box')
+            smallBox.classList.add('grid-lines')
             row.appendChild(smallBox)
         }
         innerBox.appendChild(row)
