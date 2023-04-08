@@ -28,6 +28,7 @@ body {
 .main-contents {
     display: flex;
     flex-direction: row;
+    padding-bottom: 8rem;
     margin: 1rem;
 }
 
