@@ -1,7 +1,10 @@
 var isDrawing = false;
 var penColor;
+var hexValues = "0123456789ABCDEF";
+var hexSymbol = '#';
 
 document.addEventListener("DOMContentLoaded", function() {
+    console.log('loaded')
     // Slider to allow users to decide the dimensions of the sketchbox
     slider = document.querySelector('input[type=range]');
     sliderDisplay = document.querySelector('.slider-display');
@@ -10,9 +13,9 @@ document.addEventListener("DOMContentLoaded", function() {
         updateSlider(e.target.value)
     });
 
-
+    // Pen Options for Color/Eraser/Rainbow
     options = document.querySelectorAll('.option-buttons input');
-    selectDrawingOption(options);
+    toggleDrawingOption(options);
 
     // Clear button for users to reset sketchbox
     clear = document.querySelector('.clear-input');
@@ -24,11 +27,6 @@ document.addEventListener("DOMContentLoaded", function() {
     penColor = getComputedStyle(document.body).getPropertyValue('--main-bg-color');
     color = document.querySelector('input[type=color]');
     color.value = penColor;
-    color.addEventListener("input", (e) => {
-        if (document.querySelector('input[type=button][value=Color]').classList.contains('option-on')) {
-            penColor = e.target.value;
-        }
-    });
 })
 
 
@@ -59,11 +57,11 @@ function enableDrawing() {
     smallBox = document.querySelectorAll('.small-box');
     smallBox.forEach(box => {
         box.addEventListener('mousedown', () => {
-            box.style.backgroundColor = penColor;
+            box.style.backgroundColor = getPenColor();
         })
-        box.addEventListener('mousemove', () => {
+        box.addEventListener('mouseover', () => {
             if (isDrawing == true) {
-                box.style.backgroundColor = penColor;
+                box.style.backgroundColor = getPenColor();
             }
         })
     })
@@ -75,6 +73,18 @@ function enableDrawing() {
     )
 }
 
+function getPenColor() {
+    selected = document.querySelector('.option-on').value;
+    if (selected == 'Eraser') {
+        return 'white';
+    } else if (selected == 'Rainbow') {
+        return getRandomColor();
+    } else if (selected == 'Color') {
+        return document.querySelector('input[type=color]').value;
+    } else {
+        return getComputedStyle(document.body).getPropertyValue('--main-bg-color');
+    }
+}
 
 function updateSlider(value) {
     if (value < 1) {
@@ -87,16 +97,20 @@ function updateSlider(value) {
 }
 
 
-function selectDrawingOption(options) {
+function toggleDrawingOption(options) {
     options.forEach(option => {
         option.addEventListener("click", (e) => {
             options.forEach(option => option.classList.remove('option-on'));
             e.target.classList.add('option-on');
-            if (e.target.value == 'Color') {
-                penColor = document.querySelector('input[type=color]').value;
-            } else if (e.target.value == 'Eraser') {
-                penColor = 'white';
-            }
         })
     })
+}
+
+function getRandomColor() {
+    let colorCode = hexSymbol;
+    for (i = 0; i < 6; i++) {
+        random = Math.floor(Math.random() * 16)
+        colorCode += hexValues[random];
+    }
+    return colorCode;
 }
